@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowerRpg.Stats", "FlowerRp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{69ED3685-C383-4813-BC84-DBC2A9D2784B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{E16726BE-829C-4679-8590-8A9D232A749F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{69ED3685-C383-4813-BC84-DBC2A9D2784B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69ED3685-C383-4813-BC84-DBC2A9D2784B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69ED3685-C383-4813-BC84-DBC2A9D2784B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16726BE-829C-4679-8590-8A9D232A749F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16726BE-829C-4679-8590-8A9D232A749F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16726BE-829C-4679-8590-8A9D232A749F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16726BE-829C-4679-8590-8A9D232A749F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
