@@ -77,4 +77,50 @@ public class StatTests
         // Assert
         Assert.True(invoked);
     }
+    
+    [Fact]
+    public void AddModifier_ShouldHasModifier()
+    {
+        // Arrange
+        var stat = new Stat(10f);
+        var modifier = new Modifier(ModifierType.Flat, 5f, 1);
+        
+        // Act
+        stat.AddModifier(modifier);
+        
+        // Assert
+        Assert.True(stat.HasModifier(modifier));
+    }
+    
+    [Fact]
+    public void RemoveModifier_ShouldNotHasModifier()
+    {
+        // Arrange
+        var stat = new Stat(10f);
+        var modifier = new Modifier(ModifierType.Flat, 5f, 1);
+        stat.AddModifier(modifier);
+        
+        // Act
+        stat.RemoveModifier(modifier);
+        
+        // Assert
+        Assert.False(stat.HasModifier(modifier));
+    }
+    
+    [Fact]
+    public void RemoveAllModifiersFromSource_ShouldNotHasModifier()
+    {
+        var stat = new Stat(10f);
+        var modifier = new Modifier(ModifierType.Flat, 5f, 1, this);
+        stat.AddModifier(modifier);
+
+        if (modifier.Source != null)
+        {
+            stat.RemoveAllModifiersFromSource(modifier.Source);
+            Assert.False(stat.HasModifier(modifier));
+            return;
+        }
+        
+        Assert.True(false);
+    }
 }
