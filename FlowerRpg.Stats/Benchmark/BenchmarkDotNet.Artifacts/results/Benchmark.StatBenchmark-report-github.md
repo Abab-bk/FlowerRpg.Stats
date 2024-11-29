@@ -8,6 +8,7 @@ AMD Ryzen 5 5600, 1 CPU, 12 logical and 6 physical cores
 
 
 ```
-| Method       | modifierCount | Mean     | Error    | StdDev   |
-|------------- |-------------- |---------:|---------:|---------:|
-| AddModifiers | 1000          | 14.19 ms | 0.141 ms | 0.132 ms |
+| Method       | modifierCount | Mean      | Error    | StdDev   |
+|------------- |-------------- |----------:|---------:|---------:|
+| **AddModifiers** | **1000**          |  **55.65 μs** | **1.102 μs** | **2.661 μs** |
+| **AddModifiers** | **10000**         | **563.26 μs** | **3.010 μs** | **2.816 μs** |

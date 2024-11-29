@@ -5,7 +5,7 @@ public class Modifier(
     ModifierType type,
     int order = 0,
     Object? source = null
-    ) : IModifier
+    ) : IModifier, IEquatable<Modifier>, IComparable<Modifier>
 {
     public Modifier(ModifierType type, float value, int order, object source)
         : this(value, type, order, source) {}
@@ -23,7 +23,7 @@ public class Modifier(
     public Object? Source { get; } = source;
     public ModifierType Type { get; } = type;
 
-    public virtual float GetValue(float baseValue)
+    public float GetValue(float baseValue)
     {
         switch (Type)
         {
@@ -39,4 +39,34 @@ public class Modifier(
     }
 
     public int Order { get; } = order;
+
+    public static bool operator ==(Modifier left, Modifier right) => left.Equals(right);
+    public static bool operator !=(Modifier left, Modifier right) => !left.Equals(right);
+    public static bool operator <(Modifier left, Modifier right) => left.CompareTo(right) < 0;
+    public static bool operator >(Modifier left, Modifier right) => left.CompareTo(right) > 0;
+    public static bool operator <=(Modifier left, Modifier right) => left.CompareTo(right) <= 0;
+    public static bool operator >=(Modifier left, Modifier right) => left.CompareTo(right) >= 0;
+    
+    public bool Equals(Modifier other)
+    {
+        return Value.Equals(other.Value) &&
+               Equals(Source, other.Source) &&
+               Type == other.Type &&
+               Order == other.Order;
+    }
+
+    public int CompareTo(Modifier other)
+    {
+        return Order.CompareTo(other.Order);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Modifier other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Value, Source, (int)Type, Order);
+    }
 }

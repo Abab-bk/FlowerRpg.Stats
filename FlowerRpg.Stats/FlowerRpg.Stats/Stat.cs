@@ -8,7 +8,7 @@ public class Stat(float baseValue) : IStat
 
     public float Value { get; private set; } = baseValue;
 
-    public List<Modifier> Modifiers { get; } = new ();
+    public SortedSet<Modifier> Modifiers { get; } = new ();
     
     protected bool IsDirty {
         get => _isDirty;
@@ -80,7 +80,7 @@ public class Stat(float baseValue) : IStat
     public bool AddModifier(Modifier modifier)
     {
         Modifiers.Add(modifier);
-        Modifiers.Sort(CompareModifierOrder);
+        // Modifiers.Sort(CompareModifierOrder);
         IsDirty = true;
         return true;
     }
@@ -88,7 +88,7 @@ public class Stat(float baseValue) : IStat
     public bool RemoveModifier(Modifier modifier)
     {
         var result = Modifiers.Remove(modifier);
-        IsDirty = true;
+        IsDirty = result;
         return result;
     }
 
@@ -100,7 +100,8 @@ public class Stat(float baseValue) : IStat
 
     public void RemoveAllModifiersFromSource(object source)
     {
-        Modifiers.RemoveAll(m => m.Source == source);
+        // Modifiers.RemoveAll(m => m.Source == source);
+        Modifiers.RemoveWhere(m => m.Source == source);
         IsDirty = true;
     }
 
