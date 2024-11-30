@@ -12,7 +12,7 @@ FlowerRpg.Stats is available as a [NuGet](https://www.nuget.org/packages/FlowerR
 
 ## Usage
 
-Show your code:
+Example:
 
 ```csharp
     public void HowToUse()
