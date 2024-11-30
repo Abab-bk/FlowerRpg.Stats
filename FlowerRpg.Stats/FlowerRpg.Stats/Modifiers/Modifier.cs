@@ -30,9 +30,13 @@ public readonly struct Modifier(
                 return baseValue;
         }
     }
-    
+
     public static bool operator ==(Modifier left, Modifier right) => left.Equals(right);
     public static bool operator !=(Modifier left, Modifier right) => !left.Equals(right);
+    public static bool operator <(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) < 0;
+    public static bool operator >(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) > 0;
+    public static bool operator <=(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) <= 0;
+    public static bool operator >=(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) >= 0;
     
     public bool Equals(Modifier other)
     {

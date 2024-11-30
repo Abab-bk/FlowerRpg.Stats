@@ -2,15 +2,15 @@
 
 namespace FlowerRpg.Stats;
 
-public class Stat(float baseValue) : IStat
+public sealed class Stat(float baseValue) : IStat
 {
     public event Action<float> OnValueChanged = delegate { };
 
     public float Value { get; private set; } = baseValue;
 
-    public SortedSet<Modifier> Modifiers { get; } = new ();
+    private readonly SortedSet<Modifier> _modifiers = new ();
     
-    protected bool IsDirty {
+    private bool IsDirty {
         get => _isDirty;
         set
         {
@@ -23,7 +23,7 @@ public class Stat(float baseValue) : IStat
     }
     private bool _isDirty = true;
     
-    protected float BaseValue {
+    private float BaseValue {
         get => _baseValue;
         set
         {
@@ -42,7 +42,7 @@ public class Stat(float baseValue) : IStat
         var percentAddValue = 0f;
         var percentMultValue = 1f;
         
-        foreach (var modifier in Modifiers)
+        foreach (var modifier in _modifiers)
         {
             switch (modifier.Type)
             {
@@ -53,11 +53,11 @@ public class Stat(float baseValue) : IStat
                     percentAddValue += modifier.GetValue(BaseValue);
                     break;
                 case ModifierType.PercentMult:
-                    percentMultValue *= 1 + modifier.GetValue(BaseValue);
+                    percentMultValue *= modifier.GetValue(BaseValue);
                     break;
             }
         }
-        
+
         finalValue += flatValue;
         finalValue *= 1 + percentAddValue;
         finalValue *= percentMultValue;
@@ -65,33 +65,33 @@ public class Stat(float baseValue) : IStat
         return (float)Math.Round(finalValue, 4);
     }
 
-    public bool HasModifier(Modifier modifier) => Modifiers.Contains(modifier);
+    public bool HasModifier(Modifier modifier) => _modifiers.Contains(modifier);
 
     public bool AddModifier(Modifier modifier)
     {
-        Modifiers.Add(modifier);
-        // Modifiers.Sort(CompareModifierOrder);
+        _modifiers.Add(modifier);
+        
         IsDirty = true;
         return true;
     }
 
     public bool RemoveModifier(Modifier modifier)
     {
-        var result = Modifiers.Remove(modifier);
+        var result = _modifiers.Remove(modifier);
+        
         IsDirty = result;
         return result;
     }
 
     public void RemoveAllModifiers()
     {
-        Modifiers.Clear();
+        _modifiers.Clear();
         IsDirty = true;
     }
 
     public void RemoveAllModifiersFromSource(object source)
     {
-        // Modifiers.RemoveAll(m => m.Source == source);
-        Modifiers.RemoveWhere(m => m.Source == source);
+        _modifiers.RemoveWhere(m => m.Source == source);
         IsDirty = true;
     }
 
@@ -100,5 +100,5 @@ public class Stat(float baseValue) : IStat
         BaseValue = value;
     }
 
-    public IEnumerable<Modifier> GetModifiers() => Modifiers;
+    public IEnumerable<Modifier> GetModifiers() => _modifiers;
 }
