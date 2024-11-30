@@ -23,9 +23,9 @@ public sealed class Stat(float baseValue) : IStat
     }
     private bool _isDirty = true;
     
-    private float BaseValue {
+    public float BaseValue {
         get => _baseValue;
-        set
+        private set
         {
             if (_baseValue.Equals(value)) return;
             _baseValue = value;

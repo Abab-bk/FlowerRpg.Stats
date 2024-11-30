@@ -1,5 +1,8 @@
 ﻿namespace FlowerRpg.Stats;
 
+/// <summary>
+/// Vital represents a statistical value that has a maximum value and a minimum value.
+/// </summary>
 public class Vital
 {
     public event Action OnValueToMax = delegate { };
@@ -9,6 +12,11 @@ public class Vital
     public IStat MaxValue { get; private set; }
     public float MinValue { get; private set; }
     public float Value { get; private set; }
+    
+    /// <summary>
+    /// Returns the ratio of the current value to the max value
+    /// </summary>
+    public float Ratio => GetRatio();
     
     private float _lastRatio;
 
@@ -89,7 +97,6 @@ public class Vital
         if (MaxValue.Value == 0) return 1f;
         var result = (Value - MinValue) / (MaxValue.Value - MinValue);
         return (float)Math.Round(result, 2);
-        // return (float)Math.Round(Value / MaxValue.Value, 2);
     }
     
     private float UpdateLastRatio() => _lastRatio = GetRatio();
