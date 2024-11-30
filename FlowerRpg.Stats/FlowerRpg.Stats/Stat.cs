@@ -34,16 +34,6 @@ public class Stat(float baseValue) : IStat
     }
     
     private float _baseValue = baseValue;
-
-    
-    private int CompareModifierOrder(Modifier a, Modifier b)
-    {
-        if (a.Order < b.Order)
-            return -1;
-        if (a.Order > b.Order)
-            return 1;
-        return 0;
-    }
     
     private float CalculateValue()
     {

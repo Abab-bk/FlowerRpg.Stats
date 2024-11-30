@@ -111,7 +111,7 @@ public class StatTests
     public void RemoveAllModifiersFromSource_ShouldNotHasModifier()
     {
         var stat = new Stat(10f);
-        var modifier = new Modifier(ModifierType.Flat, 5f, 1, this);
+        var modifier = new Modifier(ModifierType.Flat, 5f, this);
         stat.AddModifier(modifier);
 
         if (modifier.Source != null)
