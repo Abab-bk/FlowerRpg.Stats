@@ -8,8 +8,6 @@ public class StatBenchmark
 {
     [Benchmark]
     [Arguments(1000)]
-    // [Arguments(10000)]
-    // [Arguments(100000)]
     public void AddModifiers(int modifierCount)
     {
         var stat = new Stat(10f);
@@ -22,7 +20,6 @@ public class StatBenchmark
 
     [Benchmark]
     [Arguments(1000)]
-    // [Arguments(10000)]
     public void HasModifier(int modifierCount)
     {
         var stat = GetStatWithModifiers(modifierCount);

@@ -8,7 +8,7 @@ public sealed class Stat(float baseValue) : IStat
 
     public float Value { get; private set; } = baseValue;
 
-    private readonly SortedSet<Modifier> _modifiers = new ();
+    private readonly List<Modifier> _modifiers = new ();
     
     private bool IsDirty {
         get => _isDirty;
@@ -40,7 +40,7 @@ public sealed class Stat(float baseValue) : IStat
         var finalValue = BaseValue;
         var flatValue = 0f;
         var percentAddValue = 0f;
-        var percentMultValue = 1f;
+        var percentMultValue = 0f;
         
         foreach (var modifier in _modifiers)
         {
@@ -53,14 +53,14 @@ public sealed class Stat(float baseValue) : IStat
                     percentAddValue += modifier.GetValue(BaseValue);
                     break;
                 case ModifierType.PercentMult:
-                    percentMultValue *= modifier.GetValue(BaseValue);
+                    percentMultValue += modifier.GetValue(BaseValue);
                     break;
             }
         }
 
         finalValue += flatValue;
-        finalValue *= 1 + percentAddValue;
-        finalValue *= percentMultValue;
+        finalValue += BaseValue * percentAddValue;
+        finalValue *= 1 + percentMultValue;
         
         return (float)Math.Round(finalValue, 4);
     }
@@ -91,7 +91,7 @@ public sealed class Stat(float baseValue) : IStat
 
     public void RemoveAllModifiersFromSource(object source)
     {
-        _modifiers.RemoveWhere(m => m.Source == source);
+        _modifiers.RemoveAll(m => m.Source == source);
         IsDirty = true;
     }
 
