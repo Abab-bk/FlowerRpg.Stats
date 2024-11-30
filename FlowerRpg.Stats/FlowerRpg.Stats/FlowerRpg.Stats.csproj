@@ -1,9 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <PackageId>FlowerRpg.Stats</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Flower</Authors>
+        <Company>Flowerfication</Company>
+        <RepositoryUrl>https://github.com/Abab-bk/FlowerRpg.Stats.git</RepositoryUrl>
+        <PackageTags>Game;GameDev;RPG;Stats;Stat System</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="LICENSE.txt" Pack="true" PackagePath=""/>
+        <None Include="README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
 
 </Project>
