@@ -8,7 +8,7 @@ public sealed class Stat(float baseValue) : IStat
 
     public float Value { get; private set; } = baseValue;
 
-    private readonly List<Modifier> _modifiers = new ();
+    private readonly List<IModifier> _modifiers = new ();
     
     private bool IsDirty {
         get => _isDirty;
@@ -71,6 +71,8 @@ public sealed class Stat(float baseValue) : IStat
     {
         _modifiers.Add(modifier);
         
+        modifier.OnValueChanged += _ => IsDirty = true;
+        
         IsDirty = true;
         return true;
     }
@@ -100,5 +102,5 @@ public sealed class Stat(float baseValue) : IStat
         BaseValue = value;
     }
 
-    public IEnumerable<Modifier> GetModifiers() => _modifiers;
+    public IEnumerable<IModifier> GetModifiers() => _modifiers;
 }

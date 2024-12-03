@@ -197,6 +197,25 @@ public class StatTests
         Assert.True(false);
     }
 
+    [Fact]
+    public void Modifier_OnValueChanged_ShouldInvoke_OnValueChanged()
+    {
+        // Arrange
+        var stat = new Stat(10f);
+        var modifier = new Modifier(ModifierType.Flat, 5f, 1);
+        
+        stat.AddModifier(modifier);
+        
+        var invoked = false;
+        
+        stat.OnValueChanged += _ => invoked = true;
+        
+        // Act
+        modifier.SetValue(10f);
+        
+        // Assert
+        Assert.True(invoked);
+    }
 
     // public void HowToUse()
     // {

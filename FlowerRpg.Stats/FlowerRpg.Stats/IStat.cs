@@ -20,7 +20,7 @@ public interface IStat
     /// <summary>
     /// Gets a collection of modifiers that are currently applied to the stat.
     /// </summary>
-    public IEnumerable<Modifier> GetModifiers();
+    public IEnumerable<IModifier> GetModifiers();
 
     /// <summary>
     /// Adds a modifier to the stat.

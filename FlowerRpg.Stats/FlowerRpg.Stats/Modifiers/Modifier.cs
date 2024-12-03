@@ -1,18 +1,31 @@
 ﻿namespace FlowerRpg.Stats.Modifiers;
 
-public readonly struct Modifier(
+public class Modifier(
     float value,
     ModifierType type,
     Object? source = null
-    ) : IModifier, IEquatable<Modifier>
+    ) : IModifier
 {
+    public event Action<float> OnValueChanged = delegate { };
+    
     public Modifier(ModifierType type, float value, object source)
         : this(value, type, source) {}
     
     public Modifier(ModifierType type, float value)
         : this(value, type) {}
+
+    public float Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            OnValueChanged.Invoke(value);
+        }
+    }
+
+    private float _value = value;
     
-    public float Value { get; } = value;
     public Object? Source { get; } = source;
     public ModifierType Type { get; } = type;
 
@@ -31,27 +44,8 @@ public readonly struct Modifier(
         }
     }
 
-    public static bool operator ==(Modifier left, Modifier right) => left.Equals(right);
-    public static bool operator !=(Modifier left, Modifier right) => !left.Equals(right);
-    public static bool operator <(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) < 0;
-    public static bool operator >(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) > 0;
-    public static bool operator <=(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) <= 0;
-    public static bool operator >=(Modifier left, Modifier right) => (left as IModifier).CompareTo(right) >= 0;
-    
-    public bool Equals(Modifier other)
+    public void SetValue(float value)
     {
-        return Value.Equals(other.Value) &&
-               Equals(Source, other.Source) &&
-               Type == other.Type;
-    }
-    
-    public override bool Equals(object? obj)
-    {
-        return obj is Modifier other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Value, Source, (int)Type);
+        Value = value;
     }
 }
