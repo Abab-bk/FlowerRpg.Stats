@@ -7,7 +7,7 @@ A stats system for games, and it's a part of FlowerRPG.
 FlowerRpg.Stats is available as a [NuGet](https://www.nuget.org/packages/FlowerRpg.Stats/) pack.
 
 ```
-<PackageReference Include="FlowerRpg.Stats" Version="1.0.0" />
+<PackageReference Include="FlowerRpg.Stats" Version="2.0.0" />
 ```
 
 ## Usage
