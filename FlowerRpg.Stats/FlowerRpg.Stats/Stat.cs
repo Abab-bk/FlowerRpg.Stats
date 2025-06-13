@@ -103,4 +103,9 @@ public sealed class Stat(float baseValue) : IStat
     }
 
     public IEnumerable<IModifier> GetModifiers() => _modifiers;
+    
+    public static float operator +(Stat stat, float value) => stat.Value + value;
+    public static float operator -(Stat stat, float value) => stat.Value - value;
+    public static float operator *(Stat stat, float value) => stat.Value * value;
+    public static float operator /(Stat stat, float value) => stat.Value / value;
 }

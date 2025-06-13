@@ -216,6 +216,46 @@ public class StatTests
         // Assert
         Assert.True(invoked);
     }
+    
+    [Theory]
+    [InlineData(0f, 5f, 5f)]
+    [InlineData(10f, -3f, 7f)]
+    [InlineData(2.5f, 1.5f, 4f)]
+    public void AdditionOperator_WorksWithVariousValues(float initialValue, float addValue, float expected)
+    {
+        var stat = new Stat(initialValue);
+        Assert.Equal(expected, stat + addValue);
+    }
+    
+    [Theory]
+    [InlineData(10f, 2f, 20f)]
+    [InlineData(3f, 0.5f, 1.5f)]
+    [InlineData(-4f, 2f, -8f)]
+    public void MultiplicationOperator_WorksWithVariousValues(float initialValue, float multiplier, float expected)
+    {
+        var stat = new Stat(initialValue);
+        Assert.Equal(expected, stat * multiplier);
+    }
+    
+    [Theory]
+    [InlineData(10f, 2f, 5f)]
+    [InlineData(10f, 0.5f, 20f)]
+    [InlineData(10f, -2f, -5f)]
+    public void DivisionOperator_WorksWithVariousValues(float initialValue, float divisor, float expected)
+    {
+        var stat = new Stat(initialValue);
+        Assert.Equal(expected, stat / divisor);
+    }
+
+    [Theory]
+    [InlineData(10f, 2f, 8f)]
+    [InlineData(10f, 0.5f, 9.5f)]
+    [InlineData(10f, -2f, 12f)]
+    public void SubtractionOperator_WorksWithVariousValues(float initialValue, float subtrahend, float expected)
+    {
+        var stat = new Stat(initialValue);
+        Assert.Equal(expected, stat - subtrahend);
+    }
 
     // public void HowToUse()
     // {
