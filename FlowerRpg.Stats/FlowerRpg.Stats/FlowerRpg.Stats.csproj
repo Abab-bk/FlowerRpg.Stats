@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>FlowerRpg.Stats</PackageId>
-        <Version>2.1.0</Version>
+        <Version>2.2.1</Version>
         <Authors>Flower</Authors>
         <Company>Flowerfication</Company>
         <RepositoryUrl>https://github.com/Abab-bk/FlowerRpg.Stats.git</RepositoryUrl>
