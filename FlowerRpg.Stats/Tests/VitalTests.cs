@@ -74,15 +74,33 @@ public class VitalTests
     [InlineData(10, 0.1f)]
     public void KeepValueRatio_WhenMaxValueChanges(float baseValue, float ratio)
     {
-        // Arrange
         var vital = new Vital(new Stat(baseValue), 0, 0, true, ratio);
         var testRatio = vital.GetRatio();
-
         vital.MaxValue.SetBaseValue(200);
-        
-        // Assert
         Assert.Equal(testRatio, vital.GetRatio());
     }
+    
+    [Fact]
+    public void KeepValueRatio_WhenMaxValueIsNegative_ShouldThrowException()
+    {
+        var vital = new Vital(new Stat(200f), 0, 200, true, 1f);
+        Assert.Throws<InvalidOperationException>(() => vital.MaxValue.SetBaseValue(-200));
+    }
+
+    [Fact]
+    public void Constructor_WithNegativeMaxValue_ShouldThrowException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => 
+            new Vital(new Stat(-100f), 0, 100, true, 0.5f));
+    }
+
+    [Fact]
+    public void Constructor_WithNegativeMinValue_ShouldThrowException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => 
+            new Vital(new Stat(100f), -10, 100, true, 0.5f));
+    }
+
     
     [Theory]
     [InlineData(200, 1)]

@@ -31,17 +31,13 @@ public class Modifier(
 
     public float GetValue(float baseValue)
     {
-        switch (Type)
+        return Type switch
         {
-            case ModifierType.Flat:
-                return Value;
-            case ModifierType.PercentAdd:
-                return Value;
-            case ModifierType.PercentMult:
-                return Value;
-            default:
-                return baseValue;
-        }
+            ModifierType.Flat => Value,
+            ModifierType.PercentAdd => Value,
+            ModifierType.PercentMult => Value,
+            _ => baseValue
+        };
     }
 
     public void SetValue(float value)

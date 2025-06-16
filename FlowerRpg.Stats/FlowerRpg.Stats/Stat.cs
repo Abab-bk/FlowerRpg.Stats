@@ -55,6 +55,8 @@ public sealed class Stat(float baseValue) : IStat
                 case ModifierType.PercentMult:
                     percentMultValue += modifier.GetValue(BaseValue);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

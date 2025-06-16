@@ -27,6 +27,15 @@ public class Vital
         bool useRatio = false,
         float ratio = 0)
     {
+#if DEBUG
+        if (maxValue.Value < 0)
+            throw new ArgumentOutOfRangeException(nameof(maxValue), "MaxValue cannot be negative");
+        if (minValue < 0)
+            throw new ArgumentOutOfRangeException(nameof(minValue), "MinValue cannot be less than 0");
+        if (minValue > maxValue.Value)
+            throw new ArgumentOutOfRangeException(nameof(minValue), "MinValue must be less than or equal to MaxValue");  
+#endif
+        
         MaxValue = maxValue;
         MinValue = minValue;
 
@@ -34,7 +43,9 @@ public class Vital
 
         if (useRatio)
         {
+#if DEBUG
             if (ratio < 0) throw new ArgumentOutOfRangeException(nameof(ratio), "Ratio must be greater than 0");
+#endif
             Value = maxValue.Value * ratio;
             UpdateLastRatio();
             return;
@@ -46,6 +57,13 @@ public class Vital
 
     public void SetMaxValue(IStat stat)
     {
+#if DEBUG
+        if (stat.Value < 0)
+            throw new ArgumentOutOfRangeException(nameof(stat), "MaxValue cannot be negative");
+        if (MinValue > stat.Value)
+            throw new ArgumentOutOfRangeException(nameof(stat), "MaxValue must be greater than or equal to MinValue");  
+#endif
+        
         MaxValue.OnValueChanged -= OnMaxValueChanged;
         
         var currentRatio = GetRatio();
@@ -58,8 +76,12 @@ public class Vital
 
     public void SetMinValue(float value)
     {
+#if DEBUG
+        if (value < 0)
+            throw new ArgumentOutOfRangeException(nameof(value), "MinValue cannot be less than 0");
         if (value > MaxValue.Value)
-            throw new ArgumentOutOfRangeException(nameof(value), "MinValue must be less than MaxValue");
+            throw new ArgumentOutOfRangeException(nameof(value), "MinValue must be less than or equal to MaxValue");
+#endif
         MinValue = value;
         SetValueByRatio(_lastRatio);
         UpdateLastRatio();
@@ -67,14 +89,21 @@ public class Vital
 
     private void OnMaxValueChanged(float value)
     {
+#if DEBUG
+        if (value < 0)
+            throw new InvalidOperationException("MaxValue cannot be negative after change");
+        if (value < MinValue)
+            throw new InvalidOperationException("MaxValue cannot be less than MinValue after change");
+#endif
         SetValueByRatio(_lastRatio);
         UpdateLastRatio();
     }
 
     public void SetValueByRatio(float ratio)
     {
+#if DEBUG
         if (ratio < 0) throw new ArgumentOutOfRangeException(nameof(ratio), "Ratio must be greater than 0");
-        // SetValue(MaxValue.Value * ratio);
+#endif
         SetValue(MinValue + (MaxValue.Value - MinValue) * ratio);
     }
 
@@ -95,6 +124,7 @@ public class Vital
     public float GetRatio()
     {
         if (MaxValue.Value == 0) return 1f;
+        if (MaxValue.Value.Equals(MinValue)) return 1f;
         var result = (Value - MinValue) / (MaxValue.Value - MinValue);
         return (float)Math.Round(result, 2);
     }
