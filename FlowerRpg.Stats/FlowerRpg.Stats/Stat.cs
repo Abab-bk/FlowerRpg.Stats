@@ -114,4 +114,5 @@ public sealed class Stat(float baseValue) : IStat
     public static float operator -(float value, Stat stat) => value - stat.Value;
     public static float operator *(float value, Stat stat) => value * stat.Value;
     public static float operator /(float value, Stat stat) => value / stat.Value;
+    public static implicit operator float(Stat stat) => stat.Value;
 }
