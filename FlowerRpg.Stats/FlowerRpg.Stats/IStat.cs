@@ -64,4 +64,13 @@ public interface IStat
     /// Occurs when the value of the stat changes.
     /// </summary>
     event Action<float> OnValueChanged;
+    
+    public static float operator +(IStat stat, float value) => stat.Value + value;
+    public static float operator -(IStat stat, float value) => stat.Value - value;
+    public static float operator *(IStat stat, float value) => stat.Value * value;
+    public static float operator /(IStat stat, float value) => stat.Value / value;
+    public static float operator +(float value, IStat stat) => value + stat.Value;
+    public static float operator -(float value, IStat stat) => value - stat.Value;
+    public static float operator *(float value, IStat stat) => value * stat.Value;
+    public static float operator /(float value, IStat stat) => value / stat.Value;
 }
