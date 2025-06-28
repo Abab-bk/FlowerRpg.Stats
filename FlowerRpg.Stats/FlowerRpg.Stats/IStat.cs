@@ -5,7 +5,7 @@ namespace FlowerRpg.Stats;
 /// <summary>
 /// Represents a statistical value that can be modified by various modifiers.
 /// </summary>
-public interface IStat
+public interface IStat<T> where T : IStat<T>
 {
     /// <summary>
     /// Gets the current value of the stat.
@@ -65,12 +65,12 @@ public interface IStat
     /// </summary>
     event Action<float> OnValueChanged;
     
-    public static float operator +(IStat stat, float value) => stat.Value + value;
-    public static float operator -(IStat stat, float value) => stat.Value - value;
-    public static float operator *(IStat stat, float value) => stat.Value * value;
-    public static float operator /(IStat stat, float value) => stat.Value / value;
-    public static float operator +(float value, IStat stat) => value + stat.Value;
-    public static float operator -(float value, IStat stat) => value - stat.Value;
-    public static float operator *(float value, IStat stat) => value * stat.Value;
-    public static float operator /(float value, IStat stat) => value / stat.Value;
+    public static abstract float operator +(T stat, float value);
+    public static abstract float operator +(float value, T stat);
+    public static abstract float operator -(T stat, float value);
+    public static abstract float operator -(float value, T stat);
+    public static abstract float operator *(T stat, float value);
+    public static abstract float operator *(float value, T stat);
+    public static abstract float operator /(T stat, float value);
+    public static abstract float operator /(float value, T stat);
 }

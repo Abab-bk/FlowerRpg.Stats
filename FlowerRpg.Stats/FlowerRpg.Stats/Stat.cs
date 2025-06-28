@@ -2,9 +2,21 @@
 
 namespace FlowerRpg.Stats;
 
-public sealed class Stat(float baseValue) : IStat
+public sealed class Stat(float baseValue) : IStat<Stat>
 {
     public event Action<float> OnValueChanged = delegate { };
+    
+    public static float operator +(Stat stat, float value) => stat.Value + value;
+    public static float operator +(float value, Stat stat) => stat.Value + value;
+
+    public static float operator -(Stat stat, float value) => stat.Value - value;
+    public static float operator -(float value, Stat stat) => stat.Value - value;
+
+    public static float operator *(Stat stat, float value) => stat.Value * value;
+    public static float operator *(float value, Stat stat) => stat.Value * value;
+
+    public static float operator /(Stat stat, float value) => stat.Value / value;
+    public static float operator /(float value, Stat stat) => value / stat.Value;
 
     public float Value { get; private set; } = baseValue;
 

@@ -9,7 +9,7 @@ public class Vital
     public event Action OnValueToMin = delegate { };
     public event Action<float> OnValueChanged = delegate { };
     
-    public IStat MaxValue { get; private set; }
+    public IStat<Stat> MaxValue { get; private set; }
     public float MinValue { get; private set; }
     public float Value { get; private set; }
     
@@ -21,7 +21,7 @@ public class Vital
     private float _lastRatio;
 
     public Vital(
-        IStat maxValue,
+        IStat<Stat> maxValue,
         float minValue,
         float value,
         bool useRatio = false,
@@ -55,7 +55,7 @@ public class Vital
         UpdateLastRatio();
     }
 
-    public void SetMaxValue(IStat stat)
+    public void SetMaxValue(IStat<Stat> stat)
     {
 #if DEBUG
         if (stat.Value < 0)
